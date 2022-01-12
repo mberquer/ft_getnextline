@@ -6,13 +6,14 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:02 by mberquer          #+#    #+#             */
-/*   Updated: 2022/01/12 13:49:10 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:02:13 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*get_next_line(int fd)
 {
 	char	*line;
+
 
 	read(fd, BUFFER_SIZE);
 	return(line);
