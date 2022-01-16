@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
 char	*get_next_line(int fd)
 {
-	char	*line;
+	static int	count = 0;
+	int		ret;
+	char		*buf;
+	char		*line;
 
+	while ()
+		ret = read(fd, buf,  BUFFER_SIZE);
 
-	read(fd, BUFFER_SIZE);
 	return(line);
 }
