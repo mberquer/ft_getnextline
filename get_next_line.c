@@ -11,7 +11,14 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+char    *ft_join(char *s1, char *s2)
+{
 
+}
+int     ft_cvault(static char vault)
+{
+    return (1);
+}
 char	*ft_read(static char *vault, int fd, char *buf, int cvault)
 {
 	int		ret;
