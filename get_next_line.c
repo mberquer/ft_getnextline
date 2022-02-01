@@ -6,13 +6,13 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:02 by mberquer          #+#    #+#             */
-/*   Updated: 2022/02/01 21:51:19 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:18:13 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char	*s)
+size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
@@ -70,13 +70,13 @@ int	ft_check(char *buf)
 	return (0);
 }
 
-char	*ft_read(static char *vault, int fd, char *buf, int cvault)
+char	*ft_read(char *vault, int fd, char *buf, int cvault)
 {
 	int		ret;
 	char	*new;
 
 	if (cvault == 1)
-		return (ft_get(vault));
+		return (ft_get(&vault));
 	ret = read(fd, buf, BUFFER_SIZE);
 	buf[ret] = '\0';
 	if (ret < 0 || !buf)
@@ -86,7 +86,7 @@ char	*ft_read(static char *vault, int fd, char *buf, int cvault)
 		if (ft_check(buf))
 		{
 			vault = ft_join(vault, buf);
-			new = ft_get(vault);
+			new = ft_get(&vault);
 			return (new);
 		}
 		vault = ft_join(vault, buf);
@@ -94,7 +94,7 @@ char	*ft_read(static char *vault, int fd, char *buf, int cvault)
 		buf[ret] = '\0';
 	}
 	vault = ft_join(vault, buf);
-	new = ft_get(vault);
+	new = ft_get(&vault);
 	return (new);
 }
 
