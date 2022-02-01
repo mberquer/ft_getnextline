@@ -6,7 +6,7 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:45 by mberquer          #+#    #+#             */
-/*   Updated: 2022/02/01 17:08:08 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/02/01 19:48:35 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*ft_get(char **s)
 	while (j <= i)
 	{
 		s2[j] = s[j];
-		s[j] = '0';
 		j++;
 	}
 	s2[j] = '\0';
@@ -38,4 +37,22 @@ char	*ft_get(char **s)
 	free(s);
 	*s = temp;
 	return (s2);
+}
+
+void	ft_cpy(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s2[i] != '\n')
+		i++;
+	i++;
+	while(s2[i])
+	{
+		s1[j] = s2[i];
+		i++;
+		j++;
+	}
 }

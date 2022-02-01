@@ -6,7 +6,7 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:02 by mberquer          #+#    #+#             */
-/*   Updated: 2022/02/01 16:45:23 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:51:19 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*ft_read(static char *vault, int fd, char *buf, int cvault)
 		return (ft_get(vault));
 	ret = read(fd, buf, BUFFER_SIZE);
 	buf[ret] = '\0';
+	if (ret < 0 || !buf)
+		return (NULL);
 	while (ret)
 	{
 		if (ft_check(buf))
