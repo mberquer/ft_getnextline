@@ -6,7 +6,7 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:02 by mberquer          #+#    #+#             */
-/*   Updated: 2022/01/26 11:33:10 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:45:23 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,33 @@ size_t	ft_strlen(const char	*s)
 
 char    *ft_join(char *s1, char *s2)
 {
+	int	i;
+	int	j;
 	char	*s3;
-	
+
+	i = 0;
+	j = 0;
 	if (s1 && s2)
 	{
 		s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 		if (!s3)
+		{
+			free(s2);
 			return (NULL);
-		ft_strlcpy(s3, s1, ft_strlen(s1) + 1);
-		ft_strlcat(s3, s2, ft_strlen(s3) + ft_strlen(s2) + 1);
+		}
+		while(s1[i])
+		{
+			s3[i] = s1[i];
+			i++;
+		}
+		while(s2[j])
+		{
+			s3[i] = s2[j];
+			j++;
+			i++;
+		}
+		s3[i] = '\0';
+		free(s2);
 		return (s3);
 	}
 	return (NULL);
@@ -65,16 +83,16 @@ char	*ft_read(static char *vault, int fd, char *buf, int cvault)
 	{
 		if (ft_check(buf))
 		{
-			new = ft_join(vault, ft_get(buf));
-			ft_save(vault, buf);
+			vault = ft_join(vault, buf);
+			new = ft_get(vault);
 			return (new);
 		}
-		ft_save(vault, buf);
+		vault = ft_join(vault, buf);
 		ret = read(fd, buf, BUFFER_SIZE);
 		buf[ret] = '\0';
 	}
-	new = ft_join(vault, ft_get(buf));
-	ft_save(vault, buf);
+	vault = ft_join(vault, buf);
+	new = ft_get(vault);
 	return (new);
 }
 
