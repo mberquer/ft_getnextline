@@ -6,7 +6,7 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:30:34 by mberquer          #+#    #+#             */
-/*   Updated: 2022/02/01 22:23:45 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:52:03 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/types.h> // open read
+# include <sys/uio.h> // read
+# include <stdio.h> // printf
+# include <sys/stat.h> // open
+# include <fcntl.h> // open
 
 int		ft_strchr(char *s, char a);
 char	*get_next_line(int fd);

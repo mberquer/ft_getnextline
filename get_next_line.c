@@ -6,7 +6,7 @@
 /*   By: mberquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:33:02 by mberquer          #+#    #+#             */
-/*   Updated: 2022/02/01 22:18:13 by mberquer         ###   ########.fr       */
+/*   Updated: 2022/02/02 00:11:32 by mberquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,17 @@ char    *ft_join(char *s1, char *s2)
 
 int	ft_check(char *buf)
 {
-	int	i;
-
-	i = 0;
-	while (buf[i])
+	if (buf)
 	{
-		if ((buf[i]) == '\n')
-			return (1);
-		i++;
+		int	i;
+
+		i = 0;
+		while (buf[i])
+		{
+			if ((buf[i]) == '\n')
+				return (1);
+			i++;
+		}
 	}
 	return (0);
 }
@@ -102,11 +105,14 @@ char	*get_next_line(int fd)
 {
 	char		*buf;
 	static char	*vault;
+	char 	*line;
 
 	if (fd < 0 || BUFFER_SIZE  < 0)
 		return (NULL);
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)	
 		return (NULL);
-	return (ft_read(vault, fd, buf, ft_check(vault)));
+	line = ft_read(vault, fd, buf, ft_check(vault));
+	free(buf);
+	return (line);
 }
