@@ -50,7 +50,7 @@ char    *ft_join(char *s1, char *s2)
 			i++;
 		}
 		s3[i] = '\0';
-		free(s2);
+		free(s1);
 		return (s3);
 	}
 	return (NULL);
@@ -109,6 +109,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE  < 0)
 		return (NULL);
+    if (!vault)
+    {
+        vault = malloc((BUFFER_SIZE + 1) * sizeof(char));
+    }
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)	
 		return (NULL);
