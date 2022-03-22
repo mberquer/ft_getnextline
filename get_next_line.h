@@ -28,6 +28,6 @@ int		ft_check(char *buf);
 char	*ft_join(char *s1, char *s2);
 size_t	ft_strlen(char *s);
 char	*ft_get(char **s);
-void	ft_cpy(char *s1, char *s2);
+void	ft_cpy(char *s1, char **s2);
 
 #endif

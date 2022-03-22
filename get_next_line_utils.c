@@ -35,33 +35,34 @@ char	*ft_get(char **s)
 		return (NULL);
 	while (j <= i)
 	{
-		s2[j] = *s[j];
+		s2[j] = s[0][j];
 		j++;
 	}
 	s2[j] = '\0';
 	temp = malloc((ft_strlen(*s) - i + 1) * (sizeof(char)));
 	if (!temp)
 		return (NULL);
-	ft_cpy(temp, *s);
-	free(s);
+	ft_cpy(temp, s);
+	free(*s);
 	*s = temp;
 	return (s2);
 }
 
-void	ft_cpy(char *s1, char *s2)
+void	ft_cpy(char *s1, char **s2)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (s2[i] != '\n')
+	while (s2[0][i] != '\n')
 		i++;
 	i++;
-	while(s2[i])
+	while(s2[0][i])
 	{
-		s1[j] = s2[i];
+		s1[j] = s2[0][i];
 		i++;
 		j++;
 	}
+    s1[j] = '\0';
 }
