@@ -19,9 +19,9 @@ size_t	ft_strlen(char *s)
 	i = 0;
     if (!s)
         return (0);
-	while (s[i])
-		i++;
-	return (i);
+    while (s[i])
+        i++;
+    return (i);
 }
 
 char    *ft_join(char *s1, char *s2)
@@ -32,30 +32,24 @@ char    *ft_join(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	if (s1 && s2)
-	{
 		s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 		if (!s3)
-		{
-			free(s2);
 			return (NULL);
-		}
-		while(s1[i])
+		while(s1 && s1[i])
 		{
 			s3[i] = s1[i];
 			i++;
 		}
-		while(s2[j])
+		while(s2 && s2[j])
 		{
 			s3[i] = s2[j];
 			j++;
 			i++;
 		}
 		s3[i] = '\0';
-		free(s1);
+        if (s1)
+            free(s1);
 		return (s3);
-	}
-	return (NULL);
 }
 
 int	ft_check(char *buf)
@@ -75,50 +69,39 @@ int	ft_check(char *buf)
 	return (0);
 }
 
-char	*ft_read(char *vault, int fd, char *buf, int cvault)
+char	*ft_read(char *vault, int fd)
 {
 	int		ret;
-	char	*new;
+	char	*buf;
 
-	if (cvault == 1)
-		return (ft_get(&vault));
-	ret = read(fd, buf, BUFFER_SIZE);
-	buf[ret] = '\0';
-	if (ret < 0 || !buf)
-		return (NULL);
-	while (ret)
+    buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+    if (!buf)
+        return (NULL);
+    ret = 1;
+    while (!ft_check(buf) && ret != 0)
 	{
-		if (ft_check(buf))
-		{
-			vault = ft_join(vault, buf);
-			new = ft_get(&vault);
-			return (new);
-		}
-		vault = ft_join(vault, buf);
 		ret = read(fd, buf, BUFFER_SIZE);
+        if (ret < 0)
+        {
+            free(vault);
+            free(buf);
+            return (NULL);
+        }
 		buf[ret] = '\0';
+        vault = ft_join(vault, buf);
 	}
-	vault = ft_join(vault, buf);
-	new = ft_get(&vault);
-	return (new);
+    free(buf);
+	return (vault);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buf;
 	static char	*vault;
 	char 	*line;
 
 	if (fd < 0 || BUFFER_SIZE  < 0)
 		return (NULL);
-    if (!vault)
-    {
-        vault = malloc((BUFFER_SIZE + 1) * sizeof(char));
-    }
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buf)	
-		return (NULL);
-	line = ft_read(vault, fd, buf, ft_check(vault));
-	free(buf);
+	vault = ft_read(vault, fd);
+    line = ft_get(vault);
 	return (line);
 }
