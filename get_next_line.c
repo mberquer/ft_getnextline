@@ -102,6 +102,9 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE  < 0)
 		return (NULL);
 	vault = ft_read(vault, fd);
+    if (!vault)
+        return (NULL);
     line = ft_get(vault);
+    vault = ft_save(vault);
 	return (line);
 }

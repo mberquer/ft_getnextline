@@ -21,48 +21,50 @@ int		ft_strchr(char *s, char a)
 		i++;
 	return (i);
 }
-char	*ft_get(char **s)
+char	*ft_get(char *s)
 {
 	char	*s2;
-	char	*temp;
 	int		i;
 	int		j;
 
 	j = 0;
-	i = ft_strchr(*s, '\n');
+	i = ft_strchr(s, '\n');
 	s2 = malloc((i + 2) * sizeof(char));
 	if (!s2)
 		return (NULL);
 	while (j <= i)
 	{
-		s2[j] = s[0][j];
+		s2[j] = s[j];
 		j++;
 	}
 	s2[j] = '\0';
-	temp = malloc((ft_strlen(*s) - i + 1) * (sizeof(char)));
-	if (!temp)
-		return (NULL);
-	ft_cpy(temp, s);
-	free(*s);
-	*s = temp;
 	return (s2);
 }
 
-void	ft_cpy(char *s1, char **s2)
+char    *ft_save(char *vault)
 {
 	int	i;
 	int	j;
+    char *new;
 
 	i = 0;
 	j = 0;
-	while (s2[0][i] != '\n')
+	while (vault[i] != '\n')
 		i++;
+    if (!vault[i])
+    {
+        free(vault);
+        return (NULL);
+    }
+    new = malloc(sizeof(char) * (ft_strlen(vault) - i + 1));
 	i++;
-	while(s2[0][i])
+	while(vault[i])
 	{
-		s1[j] = s2[0][i];
+		new[j] = vault[i];
 		i++;
 		j++;
 	}
-    s1[j] = '\0';
+    new[j] = '\0';
+    free(vault);
+    return (new);
 }
