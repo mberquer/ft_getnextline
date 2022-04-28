@@ -49,7 +49,7 @@ char    *ft_save(char *vault)
 
 	i = 0;
 	j = 0;
-	while (vault[i] != '\n')
+	while (vault[i] && vault[i] != '\n')
 		i++;
     if (!vault[i])
     {
