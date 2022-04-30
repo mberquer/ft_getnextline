@@ -54,9 +54,9 @@ char    *ft_join(char *s1, char *s2)
 
 int	ft_check(char *buf)
 {
+    int	i;
 	if (buf)
 	{
-		int	i;
 
 		i = 0;
 		while (buf[i])
