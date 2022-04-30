@@ -55,18 +55,15 @@ char    *ft_join(char *s1, char *s2)
 int	ft_check(char *buf)
 {
     int	i;
-	if (buf)
-	{
 
-		i = 0;
-		while (buf[i])
-		{
-			if ((buf[i]) == '\n')
-				return (1);
-			i++;
-		}
-	}
-	return (0);
+    i = 0;
+    while (buf && buf[i])
+    {
+        if ((buf[i]) == '\n')
+            return (1);
+        i++;
+    }
+	return (NULL);
 }
 
 char	*ft_read(char *vault, int fd)
