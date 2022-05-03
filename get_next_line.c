@@ -43,6 +43,8 @@ char	*ft_get(char *s)
     int		i;
 
     i = 0;
+    if (!s[i])
+        return (NULL);
     while (s[i] && s[i] != '\n')
         i++;
     if (s[i] == '\n')
@@ -51,7 +53,7 @@ char	*ft_get(char *s)
     if (!s2)
         return (NULL);
     i = -1;
-    while (s2[++i] && s2[i] != '\n')
+    while (s[++i] && s[i] != '\n')
         s2[i] = s[i];
     if (s[i] == '\n')
     {
