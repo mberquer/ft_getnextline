@@ -12,60 +12,6 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	i = 0;
-    if (!s)
-        return (0);
-    while (s[i])
-        i++;
-    return (i);
-}
-
-char    *ft_join(char *s1, char *s2)
-{
-	int	i;
-	int	j;
-	char	*s3;
-
-	i = 0;
-	j = 0;
-		s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-		if (!s3)
-			return (NULL);
-		while(s1 && s1[i])
-		{
-			s3[i] = s1[i];
-			i++;
-		}
-		while(s2 && s2[j])
-		{
-			s3[i] = s2[j];
-			j++;
-			i++;
-		}
-		s3[i] = '\0';
-        if (s1)
-            free(s1);
-		return (s3);
-}
-
-int	ft_check(char *buf)
-{
-    int	i;
-
-    i = 0;
-    while (buf && buf[i])
-    {
-        if ((buf[i]) == '\n')
-            return (1);
-        i++;
-    }
-	return (NULL);
-}
-
 char	*ft_read(char *vault, int fd)
 {
 	int		ret;
@@ -75,7 +21,7 @@ char	*ft_read(char *vault, int fd)
     if (!buf)
         return (NULL);
     ret = 1;
-    while (!ft_check(buf) && ret != 0)
+    while (!ft_strchr(vault, '\n') && ret != 0)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
         if (ret < 0)
@@ -89,6 +35,61 @@ char	*ft_read(char *vault, int fd)
 	}
     free(buf);
 	return (vault);
+}
+
+char	*ft_get(char *s)
+{
+    char	*s2;
+    int		i;
+
+    i = 0;
+    while (s[i] && s[i] != '\n')
+        i++;
+    if (s[i] == '\n')
+        i++;
+    s2 = malloc((i + 1) * sizeof(char));
+    if (!s2)
+        return (NULL);
+    i = -1;
+    while (s2[++i] && s2[i] != '\n')
+        s2[i] = s[i];
+    if (s[i] == '\n')
+    {
+        s2[i] = s[i];
+        i++;
+    }
+    s2[i] = '\0';
+    return (s2);
+}
+
+char    *ft_save(char *vault)
+{
+    int	i;
+    int	j;
+    char *new;
+
+    i = 0;
+    while (vault[i] && vault[i] != '\n')
+        i++;
+    if (!vault[i])
+    {
+        free(vault);
+        return (NULL);
+    }
+    new = malloc(sizeof(char) * (ft_strlen(vault) - i + 1));
+    if (!new)
+        return (NULL);
+    i++;
+    j = 0;
+    while(vault[i])
+    {
+        new[j] = vault[i];
+        i++;
+        j++;
+    }
+    new[j] = '\0';
+    free(vault);
+    return (new);
 }
 
 char	*get_next_line(int fd)

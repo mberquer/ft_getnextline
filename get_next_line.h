@@ -21,7 +21,7 @@
 # include <sys/stat.h> // open
 # include <fcntl.h> // open
 
-int		ft_strchr(char *s, char a);
+char	*ft_strchr(const char *s, int c);
 char	*get_next_line(int fd);
 char	*ft_read(char *vault, int fd);
 int		ft_check(char *buf);

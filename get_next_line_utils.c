@@ -12,59 +12,72 @@
 
 #include "get_next_line.h"
 
-int		ft_strchr(char *s, char a)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+    int	i;
 
-	i = 0;
-	while (s[i] && s[i] != a)
-		i++;
-	return (i);
-}
-char	*ft_get(char *s)
-{
-	char	*s2;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = ft_strchr(s, '\n');
-	s2 = malloc((i + 2) * sizeof(char));
-	if (!s2)
-		return (NULL);
-	while (j <= i)
-	{
-		s2[j] = s[j];
-		j++;
-	}
-	s2[j] = '\0';
-	return (s2);
-}
-
-char    *ft_save(char *vault)
-{
-	int	i;
-	int	j;
-    char *new;
-
-	i = 0;
-	j = 0;
-	while (vault[i] && vault[i] != '\n')
-		i++;
-    if (!vault[i])
+    i = 0;
+    while (s && s[i])
     {
-        free(vault);
-        return (NULL);
+        if (s[i] == (char)c)
+            return ((char *)s + i);
+        i++;
     }
-    new = malloc(sizeof(char) * (ft_strlen(vault) - i + 1));
-	i++;
-	while(vault[i])
-	{
-		new[j] = vault[i];
-		i++;
-		j++;
-	}
-    new[j] = '\0';
-    free(vault);
-    return (new);
+    if (c == '\0')
+        return ((char *)s + i);
+    return (NULL);
+}
+
+int	ft_check(char *buf)
+{
+    int	i;
+
+    i = 0;
+    while (buf && buf[i])
+    {
+        if ((buf[i]) == '\n')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+size_t	ft_strlen(char *s)
+{
+    size_t	i;
+
+    i = 0;
+    if (!s)
+        return (0);
+    while (s[i])
+        i++;
+    return (i);
+}
+
+char    *ft_join(char *s1, char *s2)
+{
+    int	i;
+    int	j;
+    char	*s3;
+
+    i = 0;
+    j = 0;
+    s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+    if (!s3)
+        return (NULL);
+    while(s1 && s1[i])
+    {
+        s3[i] = s1[i];
+        i++;
+    }
+    while(s2 && s2[j])
+    {
+        s3[i] = s2[j];
+        j++;
+        i++;
+    }
+    s3[i] = '\0';
+    if (s1)
+        free(s1);
+    return (s3);
 }
